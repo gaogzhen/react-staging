@@ -11,19 +11,21 @@ class App extends Component {
   /**
    * 待办事项列表
    */
-  state = {todos:[
-    {id: '001', name: '晨练', done: false},
-    {id: '002', name: '学习spring', done: true},
-    {id: '003', name: '逛街', done: true},
-    {id: '004', name: '晚饭', done: false},
-  ]}
+  state = {
+    todos: [
+      { id: '001', name: '晨练', done: false },
+      { id: '002', name: '学习spring', done: true },
+      { id: '003', name: '逛街', done: true },
+      { id: '004', name: '晚饭', done: false },
+    ]
+  }
 
   /**
    * 添加待办事项
    * @param {*} todo 待办事项
    */
   addTodo = (todo) => {
-    this.setState({todos: [todo, ...this.state.todos]})
+    this.setState({ todos: [todo, ...this.state.todos] })
   }
 
 
@@ -39,24 +41,66 @@ class App extends Component {
     // 根据id查找待办事项，修改是否已完成
     const newTodos = todos.map(todo => {
       // 根据id判断是否目标待办事项
-      if(todo.id === id) {
-        return {...todo, done}
+      if (todo.id === id) {
+        return { ...todo, done }
       } else {
         return todo
       }
+    })
+    // 更新状态
+    this.setState({ todos: newTodos })
+  }
+
+  /**
+   * 根据id删除todo
+   * @param {string} id 
+   */
+  deleteTodo = (id) => {
+    // 获取todo列表
+    const { todos } = this.state
+    // 设置todo对象的done 为true
+    const newTodos = todos.filter((todo) => {
+      return todo.id !== id
+    })
+    // 更新状态
+    this.setState({ todos: newTodos })
+  }
+
+  /**
+   * 选中全部复选框
+   */
+  checkAllTodo = (done) => {
+    // 获取todo列表
+    const { todos } = this.state
+    // 
+    const newTodos = todos.map((todo) => {
+      return { ...todo, done }
+    })
+    // 更新状态
+    this.setState({ todos: newTodos })
+  }
+  /**
+   * 删除已完成
+   */
+  deleteAllDone = () => {
+    // 获取todo列表
+    const {todos} = this.state
+    // 设置todo对象的done 为true
+    const newTodos = todos.filter((todo) => {
+      return !todo.done
     })
     // 更新状态
     this.setState({todos: newTodos})
   }
 
   render() {
-    const {todos} = this.state
+    const { todos } = this.state
     return (
       <div className="todo-container">
         <div className="todo-wrap">
-          <Header addTodo={this.addTodo}/>
-          <List todos={todos} updateTodo={this.updateTodo}/>
-          <Footer />
+          <Header addTodo={this.addTodo} />
+          <List todos={todos} updateTodo={this.updateTodo} deleteTodo={this.deleteTodo} />
+          <Footer todos={todos} checkAllTodo={this.checkAllTodo} deleteAllDone={this.deleteAllDone}/>
         </div>
       </div>
     )

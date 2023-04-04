@@ -1,9 +1,20 @@
 import React, { Component } from 'react'
 import { nanoid } from "nanoid";
+import PropTypes from 'prop-types'
 import './index.css'
 
 export default class Header extends Component {
 
+  // 对接收到props进行：类型、必要性的现在
+  static propTypes = {
+    addTodo: PropTypes.func.isRequired
+  }
+
+  /**
+   * 键盘事件回调
+   * @param {object} event 
+   * @returns 
+   */
   handleKeyUp = (event) => {
     const {keyCode, target} = event
     // 判断输入enter获取值
