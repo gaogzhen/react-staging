@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Route, Routes } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import About from './pages/About'
 import Home from './pages/Home'
-import Test from './pages/Test'
 import Header from './components/Header';
 import MyNavLink from './components/MyNavLink';
 
@@ -18,25 +17,19 @@ export default class App extends Component {
         <div className="row">
           <div className="col-xs-2 col-xs-offset-2">
             <div className="list-group">
-              {/* 原生html中，<a></a>调整不同的页面 */}
-              {/* <a className="list-group-item" href="./about.html">About</a>
-            <a className="list-group-item active" href="./home.html">Home</a> */}
               {/* react中靠路由链接实现组件切换--编写路由链接 */}
-              {/* <NavLink className='list-group-item' to="/about">About</NavLink>
-              <NavLink className='list-group-item' to="/home">Home</NavLink> */}
-              <MyNavLink to="/about">About</MyNavLink>
-              <MyNavLink to="/home">Home</MyNavLink>
+              <MyNavLink to="/g2zh/about">About</MyNavLink>
+              <MyNavLink to="/g2zh/home">Home</MyNavLink>
             </div>
           </div>
           <div className="col-xs-6">
             <div className="panel">
               <div className="panel-body">
                 {/* 注册路由 */}
-                <Routes>
-                  <Route path="/about" Component={About} />
-                  <Route path="/home" Component={Home} />
-                  <Route path="/home" Component={Test} />
-                </Routes>
+                <Switch>
+                  <Route path="/g2zh/about" component={About} />
+                  <Route path="/g2zh/home" component={Home} />
+                </Switch>
               </div>
             </div>
           </div>
